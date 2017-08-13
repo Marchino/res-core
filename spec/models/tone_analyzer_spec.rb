@@ -43,6 +43,10 @@ describe "ToneAnalyzer" do
       expect(tone_analyzer.calculate_score "this is bad product that I hated very much").to eq(0)
     end
 
+    it "gives 0 to a text containing a negative phrase" do
+      expect(tone_analyzer.calculate_score "this phone is not good").to eq(0)
+    end
+
     it "gives a 20 to a text containing 2 positive words and 8 negative" do
       expect(tone_analyzer.calculate_score "this is the worst phone I had. Although screen resolution was amazing, colors were garbage. design was questionable and materials felt cheap.").to eq(20)
     end

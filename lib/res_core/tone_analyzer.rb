@@ -9,9 +9,16 @@ module ResCore
     def calculate_score text
       positive_words_count = 0
       negative_words_count = 0
+      previous_word = ''
       text.scan(/\w+/) do |word|
-        positive_words_count += 1 if positive_words.include? word
-        negative_words_count += 1 if negative_words.include? word
+        positive = positive_words.include? word
+        negative = negative_words.include? word
+        if negative || (positive && previous_word == 'not')
+          negative_words_count += 1 
+        else
+          positive_words_count += 1 if positive
+        end
+        previous_word = word
       end
       known_words_count = positive_words_count + negative_words_count
 
@@ -20,6 +27,15 @@ module ResCore
     end
 
     private
+
+    def positive_word? word
+      positive_words.include? word
+    end
+
+    def negative_word? word
+      negative_words.include? word
+    end
+
     def load_words(kind)
       file_name = File.join(File.dirname(__FILE__), 'tone_analyzer', "#{kind}-words.txt")
       File.readlines(file_name).map(&:strip)
