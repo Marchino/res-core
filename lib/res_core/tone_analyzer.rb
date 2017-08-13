@@ -13,11 +13,17 @@ module ResCore
       text.scan(/\w+/) do |word|
         positive = positive_words.include? word
         negative = negative_words.include? word
-        if negative || (positive && previous_word == 'not')
-          negative_words_count += 1 
-        else
-          positive_words_count += 1 if positive
+        if previous_word == 'not'
+          if positive
+            negative = true
+            positive = false
+          elsif negative
+            positive = true
+            negative = false
+          end
         end
+        negative_words_count += 1 if negative
+        positive_words_count += 1 if positive
         previous_word = word
       end
       known_words_count = positive_words_count + negative_words_count

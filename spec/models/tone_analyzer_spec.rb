@@ -15,8 +15,12 @@ describe "ToneAnalyzer" do
   end
   
   context "for a positive text" do
-    it "gives 100 to a text containing just by positive words" do
+    it "gives 100 to a text containing just positive words" do
       expect(tone_analyzer.calculate_score "this is a great product and I liked very much").to eq(100)
+    end
+
+    it "gives 100 to a text containing just a positive phrase" do
+      expect(tone_analyzer.calculate_score "this phone is not bad").to eq(100)
     end
 
     it "gives 67 to a text containing 2 positive and 1 negative words" do
