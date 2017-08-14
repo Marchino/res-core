@@ -43,4 +43,10 @@ describe "Review" do
     expect(review.body).to eq('This product is VERY GOOD')
   end
 
+  it "assigns a score to the review when imported" do
+    email = Mail.new email_params
+    review = Review.import_from_email email
+    expect(review.score).to eq(100)
+  end
+
 end
