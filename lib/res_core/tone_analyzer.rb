@@ -34,14 +34,6 @@ module ResCore
 
     private
 
-    def positive_word? word
-      positive_words.include? word
-    end
-
-    def negative_word? word
-      negative_words.include? word
-    end
-
     def load_words(kind)
       file_name = File.join(File.dirname(__FILE__), 'tone_analyzer', "#{kind}-words.txt")
       File.readlines(file_name).map(&:strip)
