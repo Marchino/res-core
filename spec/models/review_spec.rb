@@ -5,7 +5,8 @@ describe "Review" do
     { to: 'support@example.com',
       from: 'me@example.com',
       subject: 'product review',
-      body: 'this product is good' }
+      body: 'this product is good',
+      date: '2017-01-01 12:12:00 GMT'.to_time }
   }
   
   it "can be imported from an email object" do
@@ -15,6 +16,7 @@ describe "Review" do
     expect(review.from).to eq(email_params[:from])
     expect(review.subject).to eq(email_params[:subject])
     expect(review.body).to eq(email_params[:body])
+    expect(review.sent_at).to eq(email_params[:date])
   end
 
   it "strips out html from mail body" do
@@ -28,6 +30,7 @@ describe "Review" do
     email = Mail.new do
       to      'support@example.com'
       from    'Mikel Lindsaar <mikel@test.lindsaar.net.au>'
+      date    '2017-01-01 12:12:00 GMT'
       subject 'Review email'
 
       text_part do
