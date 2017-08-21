@@ -7,4 +7,8 @@ class Review < ActiveRecord::Base
             body: ActionController::Base.helpers.strip_tags(review_body),
             score: score
   end
+
+  def self.published
+    where(published: true)
+  end
 end
