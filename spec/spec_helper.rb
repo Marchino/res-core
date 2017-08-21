@@ -30,4 +30,12 @@ RSpec.configure do |config|
     allow(Mail).to receive(:find).and_return [Mail.new( to: 'support@example.com', from: 'me@example.com', subject: 'product review', body: 'this product is good', date: '2017-01-01 12:12:00 GMT')]
   end
 
+  config.before :suite  do
+    DatabaseCleaner.strategy = :truncation
+    DatabaseCleaner.start
+  end
+
+  config.after :each  do
+    DatabaseCleaner.clean
+  end
 end

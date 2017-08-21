@@ -8,4 +8,8 @@ class Review < ActiveRecord::Base
             score: score,
             sent_at: email.date.in_time_zone('GMT')
   end
+
+  def self.published
+    where(published: true)
+  end
 end
