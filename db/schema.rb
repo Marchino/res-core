@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170814142942) do
+ActiveRecord::Schema.define(version: 20170821220149) do
 
   create_table "reviews", force: :cascade do |t|
     t.string   "subject"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20170814142942) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer  "score"
+    t.string   "message_id"
     t.index ["published"], name: "index_reviews_on_published"
     t.index ["sent_at"], name: "index_reviews_on_sent_at"
   end
