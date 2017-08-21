@@ -5,7 +5,8 @@ class Review < ActiveRecord::Base
     create  from: email.from.join('; '),
             subject: email.subject,
             body: ActionController::Base.helpers.strip_tags(review_body),
-            score: score
+            score: score,
+            sent_at: email.date.in_time_zone('GMT')
   end
 
   def self.published
