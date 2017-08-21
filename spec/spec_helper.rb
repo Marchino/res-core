@@ -25,4 +25,9 @@ RSpec.configure do |config|
   # the seed, which is printed after each run.
   #     --seed 1234
   config.order = "random"
+
+  config.before :each do
+    allow(Mail).to receive(:find).and_return [Mail.new( to: 'support@example.com', from: 'me@example.com', subject: 'product review', body: 'this product is good')]
+  end
+
 end
