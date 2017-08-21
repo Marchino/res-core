@@ -6,7 +6,8 @@ describe "Review" do
       from: 'me@example.com',
       subject: 'product review',
       body: 'this product is good',
-      date: '2017-01-01 12:12:00 GMT'.to_time }
+      date: '2017-01-01 12:12:00 GMT'.to_time,
+      message_id: SecureRandom.uuid }
   }
   
   it "can be imported from an email object" do
@@ -17,6 +18,12 @@ describe "Review" do
     expect(review.subject).to eq(email_params[:subject])
     expect(review.body).to eq(email_params[:body])
     expect(review.sent_at).to eq(email_params[:date])
+  end
+
+  it "doesn't import the same email again" do
+    email = Mail.new email_params
+    Review.import_from_email email
+    expect{ Review.import_from_email email }.to change{ Review.count }.by 0
   end
 
   it "strips out html from mail body" do
